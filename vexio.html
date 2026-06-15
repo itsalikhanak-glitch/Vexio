@@ -1,0 +1,1838 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vexio — We Create. You Dominate.</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --black: #070709;
+    --deep: #0d0d14;
+    --card: #111119;
+    --card-border: #1e1e2e;
+    --purple: #7c3aed;
+    --purple-light: #9d6fff;
+    --purple-glow: rgba(124, 58, 237, 0.15);
+    --gold: #c9a84c;
+    --gold-light: #e8c97e;
+    --text-primary: #f0f0f8;
+    --text-secondary: #9090aa;
+    --text-muted: #505068;
+    --white: #ffffff;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    background: var(--black);
+    color: var(--text-primary);
+    overflow-x: hidden;
+    line-height: 1.6;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 1000;
+    padding: 0 5%;
+    height: 72px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: rgba(7, 7, 9, 0.85);
+    backdrop-filter: blur(16px);
+    border-bottom: 1px solid rgba(124, 58, 237, 0.08);
+    transition: all 0.3s;
+  }
+
+  nav.scrolled {
+    border-bottom-color: rgba(124, 58, 237, 0.2);
+  }
+
+  .logo {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: var(--white);
+    text-decoration: none;
+    letter-spacing: -1px;
+  }
+
+  .logo span {
+    background: linear-gradient(135deg, var(--purple-light), var(--gold-light));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .nav-links {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    list-style: none;
+  }
+
+  .nav-links a {
+    text-decoration: none;
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    font-weight: 500;
+    transition: color 0.2s;
+  }
+
+  .nav-links a:hover { color: var(--white); }
+
+  .nav-cta {
+    background: var(--purple);
+    color: var(--white) !important;
+    padding: 0.6rem 1.4rem;
+    border-radius: 50px;
+    font-weight: 600 !important;
+    transition: background 0.2s, transform 0.2s !important;
+  }
+
+  .nav-cta:hover {
+    background: var(--purple-light) !important;
+    transform: translateY(-1px);
+  }
+
+  .menu-toggle {
+    display: none;
+    background: none;
+    border: none;
+    cursor: pointer;
+    flex-direction: column;
+    gap: 5px;
+    padding: 4px;
+  }
+
+  .menu-toggle span {
+    display: block;
+    width: 24px;
+    height: 2px;
+    background: var(--white);
+    transition: all 0.3s;
+    border-radius: 2px;
+  }
+
+  /* HERO */
+  #home {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 120px 5% 80px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-bg {
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 60% 50% at 50% 0%, rgba(124, 58, 237, 0.18) 0%, transparent 70%),
+      radial-gradient(ellipse 40% 30% at 80% 80%, rgba(201, 168, 76, 0.06) 0%, transparent 60%);
+    pointer-events: none;
+  }
+
+  .hero-grid {
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(124, 58, 237, 0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(124, 58, 237, 0.04) 1px, transparent 1px);
+    background-size: 60px 60px;
+    pointer-events: none;
+  }
+
+  .hero-content { position: relative; z-index: 1; max-width: 900px; }
+
+  .hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: rgba(124, 58, 237, 0.12);
+    border: 1px solid rgba(124, 58, 237, 0.3);
+    color: var(--purple-light);
+    padding: 0.4rem 1rem;
+    border-radius: 50px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 2rem;
+  }
+
+  .hero-badge::before {
+    content: '';
+    width: 6px; height: 6px;
+    background: var(--purple-light);
+    border-radius: 50%;
+    animation: pulse 2s infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.5; transform: scale(0.8); }
+  }
+
+  h1 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: clamp(2.8rem, 7vw, 5.5rem);
+    font-weight: 700;
+    line-height: 1.05;
+    letter-spacing: -2px;
+    margin-bottom: 1.5rem;
+    color: var(--white);
+  }
+
+  h1 .gradient-text {
+    background: linear-gradient(135deg, var(--purple-light) 0%, var(--gold-light) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .hero-sub {
+    font-size: clamp(1rem, 2vw, 1.2rem);
+    color: var(--text-secondary);
+    max-width: 580px;
+    margin: 0 auto 2.5rem;
+    line-height: 1.7;
+  }
+
+  .hero-actions {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-bottom: 4rem;
+  }
+
+  .btn-primary {
+    background: var(--purple);
+    color: var(--white);
+    padding: 0.85rem 2rem;
+    border-radius: 50px;
+    font-weight: 600;
+    font-size: 0.95rem;
+    text-decoration: none;
+    transition: all 0.25s;
+    border: none;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .btn-primary:hover {
+    background: var(--purple-light);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 30px rgba(124, 58, 237, 0.35);
+  }
+
+  .btn-outline {
+    background: transparent;
+    color: var(--white);
+    padding: 0.85rem 2rem;
+    border-radius: 50px;
+    font-weight: 600;
+    font-size: 0.95rem;
+    text-decoration: none;
+    transition: all 0.25s;
+    border: 1px solid var(--card-border);
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .btn-outline:hover {
+    border-color: var(--purple);
+    background: rgba(124, 58, 237, 0.08);
+    transform: translateY(-2px);
+  }
+
+  .hero-stats {
+    display: flex;
+    gap: 3rem;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .hero-stat { text-align: center; }
+
+  .hero-stat-num {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 2.2rem;
+    font-weight: 700;
+    color: var(--white);
+    line-height: 1;
+    margin-bottom: 0.3rem;
+  }
+
+  .hero-stat-num .accent { color: var(--purple-light); }
+
+  .hero-stat-label {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+
+  /* SECTION BASE */
+  section {
+    padding: 100px 5%;
+  }
+
+  .section-eyebrow {
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--purple-light);
+    margin-bottom: 1rem;
+  }
+
+  .section-title {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 700;
+    color: var(--white);
+    letter-spacing: -1px;
+    line-height: 1.1;
+    margin-bottom: 1rem;
+  }
+
+  .section-sub {
+    font-size: 1rem;
+    color: var(--text-secondary);
+    max-width: 520px;
+    line-height: 1.7;
+  }
+
+  .section-header { margin-bottom: 4rem; }
+
+  /* SERVICES */
+  #services { background: var(--deep); }
+
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5px;
+    background: var(--card-border);
+    border: 1px solid var(--card-border);
+    border-radius: 16px;
+    overflow: hidden;
+  }
+
+  .service-card {
+    background: var(--card);
+    padding: 2rem;
+    transition: all 0.3s;
+    cursor: default;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .service-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 2px;
+    background: linear-gradient(90deg, var(--purple), var(--gold));
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.3s;
+  }
+
+  .service-card:hover::before { transform: scaleX(1); }
+
+  .service-card:hover {
+    background: #161622;
+  }
+
+  .service-icon {
+    width: 48px; height: 48px;
+    background: rgba(124, 58, 237, 0.12);
+    border: 1px solid rgba(124, 58, 237, 0.2);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1.2rem;
+    font-size: 1.3rem;
+  }
+
+  .service-title {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--white);
+    margin-bottom: 0.6rem;
+  }
+
+  .service-desc {
+    font-size: 0.88rem;
+    color: var(--text-secondary);
+    line-height: 1.65;
+  }
+
+  /* PORTFOLIO */
+  #portfolio {
+    background: var(--black);
+  }
+
+  .portfolio-filters {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+    margin-bottom: 2.5rem;
+  }
+
+  .filter-btn {
+    padding: 0.4rem 1rem;
+    border-radius: 50px;
+    border: 1px solid var(--card-border);
+    background: transparent;
+    color: var(--text-secondary);
+    font-size: 0.82rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+
+  .filter-btn.active, .filter-btn:hover {
+    background: var(--purple);
+    border-color: var(--purple);
+    color: var(--white);
+  }
+
+  .portfolio-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .portfolio-item {
+    background: var(--card);
+    border: 1px solid var(--card-border);
+    border-radius: 16px;
+    overflow: hidden;
+    transition: all 0.3s;
+    cursor: pointer;
+  }
+
+  .portfolio-item:hover {
+    border-color: rgba(124, 58, 237, 0.4);
+    transform: translateY(-4px);
+    box-shadow: 0 20px 50px rgba(0,0,0,0.4);
+  }
+
+  .portfolio-thumb {
+    width: 100%;
+    aspect-ratio: 16/9;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2.5rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .portfolio-thumb .play-btn {
+    position: absolute;
+    width: 56px; height: 56px;
+    background: rgba(255,255,255,0.15);
+    backdrop-filter: blur(8px);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid rgba(255,255,255,0.3);
+    font-size: 1.2rem;
+    transition: all 0.25s;
+  }
+
+  .portfolio-item:hover .play-btn {
+    background: var(--purple);
+    border-color: var(--purple);
+    transform: scale(1.1);
+  }
+
+  .portfolio-info {
+    padding: 1.2rem 1.4rem;
+  }
+
+  .portfolio-tag {
+    font-size: 0.72rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--purple-light);
+    margin-bottom: 0.4rem;
+  }
+
+  .portfolio-name {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--white);
+    margin-bottom: 0.3rem;
+  }
+
+  .portfolio-client {
+    font-size: 0.82rem;
+    color: var(--text-muted);
+  }
+
+  /* ABOUT */
+  #about {
+    background: var(--deep);
+  }
+
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 5rem;
+    align-items: center;
+  }
+
+  .about-visual {
+    position: relative;
+  }
+
+  .about-card-main {
+    background: var(--card);
+    border: 1px solid var(--card-border);
+    border-radius: 20px;
+    padding: 2.5rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .about-card-main::before {
+    content: '';
+    position: absolute;
+    top: -80px; right: -80px;
+    width: 200px; height: 200px;
+    background: radial-gradient(circle, rgba(124, 58, 237, 0.15) 0%, transparent 70%);
+    border-radius: 50%;
+  }
+
+  .about-avatar {
+    width: 80px; height: 80px;
+    background: linear-gradient(135deg, var(--purple), var(--gold));
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--white);
+    margin-bottom: 1.5rem;
+  }
+
+  .about-name {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--white);
+    margin-bottom: 0.3rem;
+  }
+
+  .about-role {
+    font-size: 0.85rem;
+    color: var(--purple-light);
+    font-weight: 600;
+    margin-bottom: 1.2rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+
+  .about-bio {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    line-height: 1.7;
+    margin-bottom: 1.5rem;
+  }
+
+  .about-social a {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    background: rgba(124, 58, 237, 0.1);
+    border: 1px solid rgba(124, 58, 237, 0.2);
+    color: var(--purple-light);
+    padding: 0.4rem 0.9rem;
+    border-radius: 50px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.2s;
+  }
+
+  .about-social a:hover {
+    background: var(--purple);
+    border-color: var(--purple);
+    color: var(--white);
+  }
+
+  .about-stats-mini {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin-top: 1.5rem;
+  }
+
+  .about-stat-mini {
+    background: rgba(124, 58, 237, 0.06);
+    border: 1px solid rgba(124, 58, 237, 0.12);
+    border-radius: 12px;
+    padding: 1rem;
+    text-align: center;
+  }
+
+  .about-stat-mini-num {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: var(--white);
+  }
+
+  .about-stat-mini-label {
+    font-size: 0.72rem;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+
+  .about-text h2 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: clamp(1.8rem, 3vw, 2.5rem);
+    font-weight: 700;
+    color: var(--white);
+    letter-spacing: -1px;
+    line-height: 1.2;
+    margin-bottom: 1.2rem;
+  }
+
+  .about-text p {
+    color: var(--text-secondary);
+    line-height: 1.75;
+    margin-bottom: 1rem;
+    font-size: 0.95rem;
+  }
+
+  .about-features {
+    display: flex;
+    flex-direction: column;
+    gap: 0.7rem;
+    margin: 1.5rem 0 2rem;
+  }
+
+  .about-feature {
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+  }
+
+  .about-feature::before {
+    content: '';
+    width: 6px; height: 6px;
+    background: var(--purple-light);
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  /* TESTIMONIALS */
+  #testimonials { background: var(--black); }
+
+  .testimonials-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .testimonial-card {
+    background: var(--card);
+    border: 1px solid var(--card-border);
+    border-radius: 16px;
+    padding: 2rem;
+    transition: all 0.3s;
+    position: relative;
+  }
+
+  .testimonial-card:hover {
+    border-color: rgba(124, 58, 237, 0.3);
+    transform: translateY(-3px);
+  }
+
+  .testimonial-card::before {
+    content: '"';
+    position: absolute;
+    top: 1rem; right: 1.5rem;
+    font-size: 5rem;
+    font-family: Georgia, serif;
+    color: rgba(124, 58, 237, 0.1);
+    line-height: 1;
+  }
+
+  .stars {
+    display: flex;
+    gap: 3px;
+    margin-bottom: 1rem;
+    color: var(--gold);
+    font-size: 0.9rem;
+  }
+
+  .testimonial-text {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    line-height: 1.7;
+    margin-bottom: 1.5rem;
+    font-style: italic;
+  }
+
+  .testimonial-author {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+  }
+
+  .testimonial-avatar {
+    width: 42px; height: 42px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 0.85rem;
+    color: var(--white);
+    flex-shrink: 0;
+  }
+
+  .testimonial-name {
+    font-weight: 600;
+    font-size: 0.9rem;
+    color: var(--white);
+  }
+
+  .testimonial-role {
+    font-size: 0.78rem;
+    color: var(--text-muted);
+  }
+
+  /* PRICING */
+  #pricing { background: var(--deep); }
+
+  .pricing-note {
+    display: inline-block;
+    background: rgba(201, 168, 76, 0.1);
+    border: 1px solid rgba(201, 168, 76, 0.25);
+    color: var(--gold-light);
+    padding: 0.4rem 1rem;
+    border-radius: 50px;
+    font-size: 0.82rem;
+    font-weight: 600;
+    margin-bottom: 3rem;
+  }
+
+  .pricing-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .pricing-card {
+    background: var(--card);
+    border: 1px solid var(--card-border);
+    border-radius: 20px;
+    padding: 2rem;
+    transition: all 0.3s;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .pricing-card.featured {
+    border-color: var(--purple);
+    background: linear-gradient(145deg, #141420, #0f0f1a);
+  }
+
+  .pricing-card.featured::after {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--purple), var(--gold));
+  }
+
+  .pricing-badge {
+    display: inline-block;
+    background: var(--purple);
+    color: var(--white);
+    font-size: 0.72rem;
+    font-weight: 700;
+    padding: 0.25rem 0.75rem;
+    border-radius: 50px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 1.5rem;
+  }
+
+  .pricing-plan {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--white);
+    margin-bottom: 0.5rem;
+  }
+
+  .pricing-price {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--white);
+    margin-bottom: 0.3rem;
+  }
+
+  .pricing-price-sub {
+    font-size: 0.82rem;
+    color: var(--text-muted);
+    margin-bottom: 1.5rem;
+  }
+
+  .pricing-divider {
+    height: 1px;
+    background: var(--card-border);
+    margin: 1.5rem 0;
+  }
+
+  .pricing-features {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.7rem;
+    margin-bottom: 2rem;
+  }
+
+  .pricing-features li {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    font-size: 0.87rem;
+    color: var(--text-secondary);
+  }
+
+  .pricing-features li::before {
+    content: '';
+    width: 16px; height: 16px;
+    border-radius: 50%;
+    background: rgba(124, 58, 237, 0.15);
+    border: 1px solid rgba(124, 58, 237, 0.3);
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12'%3E%3Cpath d='M2 6l3 3 5-5' stroke='%239d6fff' stroke-width='1.5' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 10px;
+  }
+
+  /* CONTACT */
+  #contact { background: var(--black); }
+
+  .contact-grid {
+    display: grid;
+    grid-template-columns: 1fr 1.3fr;
+    gap: 5rem;
+    align-items: start;
+  }
+
+  .contact-info h2 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: clamp(1.8rem, 3vw, 2.5rem);
+    font-weight: 700;
+    color: var(--white);
+    letter-spacing: -1px;
+    margin-bottom: 1rem;
+  }
+
+  .contact-info p {
+    color: var(--text-secondary);
+    line-height: 1.7;
+    margin-bottom: 2rem;
+    font-size: 0.95rem;
+  }
+
+  .contact-details {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .contact-item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem 1.2rem;
+    background: var(--card);
+    border: 1px solid var(--card-border);
+    border-radius: 12px;
+    text-decoration: none;
+    transition: all 0.2s;
+  }
+
+  .contact-item:hover {
+    border-color: rgba(124, 58, 237, 0.3);
+    background: rgba(124, 58, 237, 0.05);
+  }
+
+  .contact-icon {
+    width: 40px; height: 40px;
+    background: rgba(124, 58, 237, 0.12);
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.1rem;
+    flex-shrink: 0;
+  }
+
+  .contact-item-label {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 0.1rem;
+  }
+
+  .contact-item-value {
+    font-size: 0.88rem;
+    font-weight: 500;
+    color: var(--white);
+  }
+
+  .contact-form {
+    background: var(--card);
+    border: 1px solid var(--card-border);
+    border-radius: 20px;
+    padding: 2.5rem;
+  }
+
+  .form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+  }
+
+  .form-group {
+    margin-bottom: 1.2rem;
+  }
+
+  .form-group label {
+    display: block;
+    font-size: 0.82rem;
+    font-weight: 500;
+    color: var(--text-secondary);
+    margin-bottom: 0.5rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+
+  .form-group input,
+  .form-group select,
+  .form-group textarea {
+    width: 100%;
+    background: var(--deep);
+    border: 1px solid var(--card-border);
+    border-radius: 10px;
+    padding: 0.75rem 1rem;
+    color: var(--white);
+    font-family: 'Inter', sans-serif;
+    font-size: 0.9rem;
+    transition: border-color 0.2s;
+    outline: none;
+    resize: vertical;
+  }
+
+  .form-group input::placeholder,
+  .form-group textarea::placeholder { color: var(--text-muted); }
+
+  .form-group input:focus,
+  .form-group select:focus,
+  .form-group textarea:focus {
+    border-color: var(--purple);
+  }
+
+  .form-group select option { background: var(--deep); }
+
+  .form-submit {
+    width: 100%;
+    background: var(--purple);
+    color: var(--white);
+    padding: 1rem;
+    border-radius: 50px;
+    border: none;
+    font-weight: 600;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.25s;
+    font-family: 'Inter', sans-serif;
+  }
+
+  .form-submit:hover {
+    background: var(--purple-light);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(124, 58, 237, 0.4);
+  }
+
+  /* FOOTER */
+  footer {
+    background: var(--deep);
+    border-top: 1px solid var(--card-border);
+    padding: 60px 5% 30px;
+  }
+
+  .footer-top {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr 1fr 1fr;
+    gap: 3rem;
+    margin-bottom: 3rem;
+  }
+
+  .footer-brand p {
+    font-size: 0.88rem;
+    color: var(--text-muted);
+    line-height: 1.7;
+    margin: 1rem 0 1.5rem;
+    max-width: 240px;
+  }
+
+  .footer-social {
+    display: flex;
+    gap: 0.6rem;
+  }
+
+  .footer-social a {
+    width: 36px; height: 36px;
+    background: var(--card);
+    border: 1px solid var(--card-border);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-secondary);
+    text-decoration: none;
+    font-size: 0.85rem;
+    transition: all 0.2s;
+  }
+
+  .footer-social a:hover {
+    background: var(--purple);
+    border-color: var(--purple);
+    color: var(--white);
+  }
+
+  .footer-col h4 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--white);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 1.2rem;
+  }
+
+  .footer-col ul { list-style: none; }
+
+  .footer-col ul li {
+    margin-bottom: 0.7rem;
+  }
+
+  .footer-col ul li a {
+    text-decoration: none;
+    color: var(--text-muted);
+    font-size: 0.87rem;
+    transition: color 0.2s;
+  }
+
+  .footer-col ul li a:hover { color: var(--purple-light); }
+
+  .footer-bottom {
+    border-top: 1px solid var(--card-border);
+    padding-top: 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 0.82rem;
+    color: var(--text-muted);
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .footer-bottom a {
+    color: var(--purple-light);
+    text-decoration: none;
+  }
+
+  /* WHATSAPP FLOAT */
+  .whatsapp-float {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    z-index: 999;
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    background: #25d366;
+    color: var(--white);
+    padding: 0.75rem 1.2rem;
+    border-radius: 50px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.88rem;
+    box-shadow: 0 4px 20px rgba(37, 211, 102, 0.4);
+    transition: all 0.25s;
+    animation: float 3s ease-in-out infinite;
+  }
+
+  .whatsapp-float:hover {
+    transform: translateY(-3px) scale(1.03);
+    box-shadow: 0 8px 30px rgba(37, 211, 102, 0.5);
+  }
+
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-5px); }
+  }
+
+  .whatsapp-float:hover { animation: none; transform: translateY(-3px) scale(1.03); }
+
+  /* SCROLL ANIMATIONS */
+  .reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* MOBILE */
+  @media (max-width: 768px) {
+    nav { padding: 0 4%; }
+
+    .nav-links {
+      display: none;
+      position: fixed;
+      top: 72px;
+      left: 0; right: 0;
+      background: var(--deep);
+      border-bottom: 1px solid var(--card-border);
+      flex-direction: column;
+      padding: 1.5rem 4%;
+      gap: 1.2rem;
+    }
+
+    .nav-links.open { display: flex; }
+
+    .menu-toggle { display: flex; }
+
+    section { padding: 70px 4%; }
+
+    .about-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+
+    .contact-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+
+    .footer-top { grid-template-columns: 1fr 1fr; }
+
+    .form-row { grid-template-columns: 1fr; }
+
+    .hero-stats { gap: 1.5rem; }
+
+    .whatsapp-float span { display: none; }
+    .whatsapp-float { padding: 0.9rem; border-radius: 50%; }
+  }
+
+  /* ACTIVE NAV */
+  .nav-links a.active { color: var(--purple-light); }
+
+  /* GRADIENT DIVIDER */
+  .gradient-line {
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--purple), transparent);
+    margin: 0;
+    border: none;
+  }
+
+  .tag {
+    display: inline-block;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--purple-light);
+    margin-bottom: 0.8rem;
+  }
+</style>
+</head>
+<body>
+
+<!-- NAVIGATION -->
+<nav id="navbar">
+  <a href="#home" class="logo">Vex<span>io</span></a>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="#home" class="active">Home</a></li>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#portfolio">Portfolio</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#pricing">Pricing</a></li>
+    <li><a href="#contact" class="nav-cta">Let's Talk</a></li>
+  </ul>
+  <button class="menu-toggle" id="menuToggle" aria-label="Toggle menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- HERO -->
+<section id="home">
+  <div class="hero-bg"></div>
+  <div class="hero-grid"></div>
+  <div class="hero-content">
+    <div class="hero-badge">Full-Service Digital Agency</div>
+    <h1>We <span class="gradient-text">Create.</span><br>You Dominate.</h1>
+    <p class="hero-sub">Vexio delivers world-class digital marketing, stunning design, and high-impact video content — everything your brand needs to win online.</p>
+    <div class="hero-actions">
+      <a href="#services" class="btn-primary">Explore Services ↓</a>
+      <a href="#portfolio" class="btn-outline">View Our Work</a>
+    </div>
+    <div class="hero-stats">
+      <div class="hero-stat">
+        <div class="hero-stat-num">120<span class="accent">+</span></div>
+        <div class="hero-stat-label">Projects Done</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-num">85<span class="accent">+</span></div>
+        <div class="hero-stat-label">Happy Clients</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-num">4<span class="accent">+</span></div>
+        <div class="hero-stat-label">Years Experience</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-num">98<span class="accent">%</span></div>
+        <div class="hero-stat-label">Client Retention</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="gradient-line">
+
+<!-- SERVICES -->
+<section id="services">
+  <div class="section-header reveal">
+    <div class="section-eyebrow">What We Do</div>
+    <h2 class="section-title">Digital services built<br>for <span style="color:var(--purple-light)">growth.</span></h2>
+    <p class="section-sub">From scroll-stopping videos to SEO strategies that dominate search — we cover every corner of digital.</p>
+  </div>
+
+  <div class="services-grid reveal">
+    <div class="service-card">
+      <div class="service-icon">🎬</div>
+      <div class="service-title">Video Editing</div>
+      <p class="service-desc">Cinematic cuts, Reels, YouTube content, ads, and documentary-style edits. We turn raw footage into content that stops the scroll and drives action.</p>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">🎨</div>
+      <div class="service-title">Graphic Design</div>
+      <p class="service-desc">Logos, brand identities, social media graphics, banners, and marketing collateral designed to make your brand impossible to ignore.</p>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">📈</div>
+      <div class="service-title">SEO (Complete)</div>
+      <p class="service-desc">Full-stack SEO — on-page, off-page, technical, local, and content strategy. We rank your business on page one and keep it there.</p>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">📱</div>
+      <div class="service-title">Social Media Marketing</div>
+      <p class="service-desc">Content strategy, community management, growth hacking, and platform-specific campaigns across Instagram, TikTok, YouTube, LinkedIn & X.</p>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">💰</div>
+      <div class="service-title">Paid Advertising</div>
+      <p class="service-desc">Meta Ads, Google Ads, TikTok Ads — precision-targeted campaigns with aggressive ROI optimization. Every penny working harder for you.</p>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">✍️</div>
+      <div class="service-title">Content Writing</div>
+      <p class="service-desc">Blog posts, website copy, email sequences, ad copy, and long-form content written by humans who understand your audience and your goals.</p>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">🏷️</div>
+      <div class="service-title">Branding & Identity</div>
+      <p class="service-desc">Brand strategy, naming, visual identity systems, brand guidelines, and everything your business needs to stand out in a crowded market.</p>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">📧</div>
+      <div class="service-title">Email Marketing</div>
+      <p class="service-desc">High-converting email funnels, newsletter design, automation sequences, and list management that turns subscribers into loyal customers.</p>
+    </div>
+  </div>
+</section>
+
+<hr class="gradient-line">
+
+<!-- PORTFOLIO -->
+<section id="portfolio">
+  <div class="section-header reveal">
+    <div class="section-eyebrow">Our Work</div>
+    <h2 class="section-title">Creative work that<br>speaks <span style="color:var(--purple-light)">louder.</span></h2>
+    <p class="section-sub">A selection of projects across video, design, and marketing that delivered real results for real clients.</p>
+  </div>
+
+  <div class="portfolio-filters reveal">
+    <button class="filter-btn active">All</button>
+    <button class="filter-btn">Video Editing</button>
+    <button class="filter-btn">Graphic Design</button>
+    <button class="filter-btn">Social Media</button>
+    <button class="filter-btn">SEO</button>
+  </div>
+
+  <div class="portfolio-grid reveal">
+
+    <div class="portfolio-item">
+      <div class="portfolio-thumb" style="background: linear-gradient(135deg, #1a0533 0%, #3d1466 50%, #6b21a8 100%);">
+        <div class="play-btn">▶</div>
+      </div>
+      <div class="portfolio-info">
+        <div class="portfolio-tag">Video Editing</div>
+        <div class="portfolio-name">Brand Launch Campaign — TechNova</div>
+        <div class="portfolio-client">Product launch video · 2.3M views</div>
+      </div>
+    </div>
+
+    <div class="portfolio-item">
+      <div class="portfolio-thumb" style="background: linear-gradient(135deg, #0f2027 0%, #203a43 50%, #2c5364 100%);">
+        <div style="font-size:2.5rem">🎨</div>
+      </div>
+      <div class="portfolio-info">
+        <div class="portfolio-tag">Graphic Design</div>
+        <div class="portfolio-name">Complete Brand Identity — Luxara</div>
+        <div class="portfolio-client">Logo + full brand system · E-commerce brand</div>
+      </div>
+    </div>
+
+    <div class="portfolio-item">
+      <div class="portfolio-thumb" style="background: linear-gradient(135deg, #1c1c0a 0%, #3d3d00 50%, #666600 100%);">
+        <div class="play-btn">▶</div>
+      </div>
+      <div class="portfolio-info">
+        <div class="portfolio-tag">Video Editing</div>
+        <div class="portfolio-name">YouTube Series — FitForce</div>
+        <div class="portfolio-client">12-episode fitness series · 540K subscribers</div>
+      </div>
+    </div>
+
+    <div class="portfolio-item">
+      <div class="portfolio-thumb" style="background: linear-gradient(135deg, #0a1628 0%, #162a4a 50%, #1e3a6e 100%);">
+        <div style="font-size:2.5rem">📊</div>
+      </div>
+      <div class="portfolio-info">
+        <div class="portfolio-tag">SEO</div>
+        <div class="portfolio-name">Organic Traffic Growth — RealtyPlus</div>
+        <div class="portfolio-client">380% traffic increase in 5 months · Real estate</div>
+      </div>
+    </div>
+
+    <div class="portfolio-item">
+      <div class="portfolio-thumb" style="background: linear-gradient(135deg, #1a0a0a 0%, #4a1010 50%, #8b1818 100%);">
+        <div class="play-btn">▶</div>
+      </div>
+      <div class="portfolio-info">
+        <div class="portfolio-tag">Video Editing</div>
+        <div class="portfolio-name">Social Media Ads — SpicePath</div>
+        <div class="portfolio-client">Meta ad creatives · 4.2x ROAS achieved</div>
+      </div>
+    </div>
+
+    <div class="portfolio-item">
+      <div class="portfolio-thumb" style="background: linear-gradient(135deg, #0a1a12 0%, #103d20 50%, #1a6632 100%);">
+        <div style="font-size:2.5rem">📱</div>
+      </div>
+      <div class="portfolio-info">
+        <div class="portfolio-tag">Social Media</div>
+        <div class="portfolio-name">Instagram Growth — Botanica</div>
+        <div class="portfolio-client">0 → 120K followers in 8 months · Lifestyle brand</div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<hr class="gradient-line">
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="about-grid">
+    <div class="about-visual reveal">
+      <div class="about-card-main">
+        <div class="about-avatar">SA</div>
+        <div class="about-name">Sardar Ali Usman</div>
+        <div class="about-role">Founder & Creative Director</div>
+        <p class="about-bio">Creative strategist and digital specialist with 4+ years of building brands that cut through noise. I started Vexio with one belief: every business deserves exceptional digital presence, regardless of size.</p>
+        <div class="about-social">
+          <a href="https://www.linkedin.com/in/itsalikhan/" target="_blank">🔗 LinkedIn</a>
+        </div>
+        <div class="about-stats-mini">
+          <div class="about-stat-mini">
+            <div class="about-stat-mini-num">120+</div>
+            <div class="about-stat-mini-label">Projects</div>
+          </div>
+          <div class="about-stat-mini">
+            <div class="about-stat-mini-num">85+</div>
+            <div class="about-stat-mini-label">Clients</div>
+          </div>
+          <div class="about-stat-mini">
+            <div class="about-stat-mini-num">4+</div>
+            <div class="about-stat-mini-label">Years</div>
+          </div>
+          <div class="about-stat-mini">
+            <div class="about-stat-mini-num">15+</div>
+            <div class="about-stat-mini-label">Industries</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="about-text reveal">
+      <div class="section-eyebrow">About Vexio</div>
+      <h2>More than an agency —<br>your <span style="color:var(--purple-light)">growth partner.</span></h2>
+      <p>Vexio is a full-stack digital agency built for businesses that want to grow fast and look incredible doing it. We don't just deliver services — we deliver outcomes.</p>
+      <p>Whether you need a viral video campaign, a brand identity that commands premium pricing, or an SEO strategy that dominates your market — Vexio handles it all under one roof, with one clear goal: your success.</p>
+      <div class="about-features">
+        <div class="about-feature">Results-first approach — every project tied to real business outcomes</div>
+        <div class="about-feature">Full digital stack — strategy, design, video, copy, ads, SEO</div>
+        <div class="about-feature">Direct founder involvement on every project</div>
+        <div class="about-feature">Transparent communication and weekly reporting</div>
+        <div class="about-feature">Clients across e-commerce, SaaS, real estate, lifestyle & more</div>
+      </div>
+      <a href="#contact" class="btn-primary">Work With Us</a>
+    </div>
+  </div>
+</section>
+
+<hr class="gradient-line">
+
+<!-- TESTIMONIALS -->
+<section id="testimonials">
+  <div class="section-header reveal" style="text-align:center; max-width:600px; margin:0 auto 4rem;">
+    <div class="section-eyebrow">Client Reviews</div>
+    <h2 class="section-title">Results speak<br><span style="color:var(--purple-light)">loudest.</span></h2>
+    <p class="section-sub" style="margin:0 auto">Don't take our word for it. Here's what our clients say after working with Vexio.</p>
+  </div>
+
+  <div class="testimonials-grid reveal">
+
+    <div class="testimonial-card">
+      <div class="stars">★★★★★</div>
+      <p class="testimonial-text">"Vexio completely transformed how our brand looks and feels online. The video content they produced for our launch got us 2M+ views in the first week. Insane results."</p>
+      <div class="testimonial-author">
+        <div class="testimonial-avatar" style="background: linear-gradient(135deg, #7c3aed, #4f46e5);">MK</div>
+        <div>
+          <div class="testimonial-name">Marcus Kim</div>
+          <div class="testimonial-role">CEO, TechNova — Singapore</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="testimonial-card">
+      <div class="stars">★★★★★</div>
+      <p class="testimonial-text">"Our organic traffic went up 380% in 5 months. Ali's SEO strategy was detailed, transparent, and actually delivered. First agency I've worked with that does what they say."</p>
+      <div class="testimonial-author">
+        <div class="testimonial-avatar" style="background: linear-gradient(135deg, #059669, #0d9488);">SR</div>
+        <div>
+          <div class="testimonial-name">Sarah Rahman</div>
+          <div class="testimonial-role">Marketing Head, RealtyPlus — UAE</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="testimonial-card">
+      <div class="stars">★★★★★</div>
+      <p class="testimonial-text">"The brand identity Vexio built for us helped us raise our prices by 40% and attract premium clients. The investment paid back in month one. Outstanding creative work."</p>
+      <div class="testimonial-author">
+        <div class="testimonial-avatar" style="background: linear-gradient(135deg, #c9a84c, #b45309);">LP</div>
+        <div>
+          <div class="testimonial-name">Laila Patel</div>
+          <div class="testimonial-role">Founder, Luxara — London</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="testimonial-card">
+      <div class="stars">★★★★★</div>
+      <p class="testimonial-text">"I gave Ali full creative control and he delivered a YouTube series that grew our channel from 10K to 540K in under a year. The editing quality is genuinely world-class."</p>
+      <div class="testimonial-author">
+        <div class="testimonial-avatar" style="background: linear-gradient(135deg, #dc2626, #9f1239);">JC</div>
+        <div>
+          <div class="testimonial-name">Jake Chen</div>
+          <div class="testimonial-role">Creator, FitForce — USA</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="testimonial-card">
+      <div class="stars">★★★★★</div>
+      <p class="testimonial-text">"Our Meta ads were burning money before Vexio. They rebuilt our creative strategy, redesigned our ads, and hit a 4.2x ROAS in month two. Absolutely recommend."</p>
+      <div class="testimonial-author">
+        <div class="testimonial-avatar" style="background: linear-gradient(135deg, #7c3aed, #c2410c);">AN</div>
+        <div>
+          <div class="testimonial-name">Ayesha Noor</div>
+          <div class="testimonial-role">Co-Founder, SpicePath — Pakistan</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="testimonial-card">
+      <div class="stars">★★★★★</div>
+      <p class="testimonial-text">"From zero to 120K followers in 8 months. Vexio built our entire content strategy from scratch and made our Instagram the best-performing channel in our niche. Worth every rupee."</p>
+      <div class="testimonial-author">
+        <div class="testimonial-avatar" style="background: linear-gradient(135deg, #0891b2, #0e7490);">FI</div>
+        <div>
+          <div class="testimonial-name">Fatima Iqbal</div>
+          <div class="testimonial-role">Founder, Botanica — Lahore</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<hr class="gradient-line">
+
+<!-- PRICING -->
+<section id="pricing">
+  <div class="section-header reveal" style="text-align:center; max-width:600px; margin:0 auto 1rem;">
+    <div class="section-eyebrow">Investment</div>
+    <h2 class="section-title">Transparent pricing.<br><span style="color:var(--purple-light)">No surprises.</span></h2>
+    <p class="section-sub" style="margin:0 auto">Choose a plan or get a fully custom proposal tailored to your needs.</p>
+  </div>
+
+  <div style="text-align:center; margin-bottom:3rem;">
+    <div class="pricing-note">📞 Prefer to talk? Contact us for custom pricing →</div>
+  </div>
+
+  <div class="pricing-grid reveal">
+
+    <div class="pricing-card">
+      <div class="pricing-plan">Starter</div>
+      <div class="pricing-price">Contact</div>
+      <div class="pricing-price-sub">For pricing</div>
+      <div class="pricing-divider"></div>
+      <ul class="pricing-features">
+        <li>4 Social Media Posts / month</li>
+        <li>Basic SEO audit + on-page fixes</li>
+        <li>2 short-form video edits</li>
+        <li>Monthly performance report</li>
+        <li>Email support</li>
+      </ul>
+      <a href="#contact" class="btn-outline" style="display:block; text-align:center; padding:0.8rem 1rem; border-radius:50px;">Get a Quote</a>
+    </div>
+
+    <div class="pricing-card featured">
+      <div class="pricing-badge">Most Popular</div>
+      <div class="pricing-plan">Growth</div>
+      <div class="pricing-price">Contact</div>
+      <div class="pricing-price-sub">For pricing</div>
+      <div class="pricing-divider"></div>
+      <ul class="pricing-features">
+        <li>12 Social Media Posts + Stories</li>
+        <li>Full SEO (on-page + off-page)</li>
+        <li>6 video edits (short + long form)</li>
+        <li>Graphic design package</li>
+        <li>Meta or Google Ads management</li>
+        <li>Weekly reporting & strategy calls</li>
+        <li>Priority support</li>
+      </ul>
+      <a href="#contact" class="btn-primary" style="display:block; text-align:center; padding:0.8rem 1rem; border-radius:50px;">Get a Quote</a>
+    </div>
+
+    <div class="pricing-card">
+      <div class="pricing-plan">Dominator</div>
+      <div class="pricing-price">Contact</div>
+      <div class="pricing-price-sub">For pricing</div>
+      <div class="pricing-divider"></div>
+      <ul class="pricing-features">
+        <li>Unlimited social content</li>
+        <li>Full SEO + content strategy</li>
+        <li>Unlimited video editing</li>
+        <li>Complete branding suite</li>
+        <li>Multi-platform paid ads</li>
+        <li>Email marketing automation</li>
+        <li>Dedicated account manager</li>
+        <li>Daily reporting dashboard</li>
+      </ul>
+      <a href="#contact" class="btn-outline" style="display:block; text-align:center; padding:0.8rem 1rem; border-radius:50px;">Get a Quote</a>
+    </div>
+
+  </div>
+</section>
+
+<hr class="gradient-line">
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="contact-grid">
+    <div class="contact-info reveal">
+      <div class="section-eyebrow">Get In Touch</div>
+      <h2>Let's build something<br><span style="color:var(--purple-light)">great together.</span></h2>
+      <p>Ready to grow your brand? Drop us a message and we'll get back to you within 24 hours with a tailored proposal.</p>
+
+      <div class="contact-details">
+        <a href="mailto:itsalikhanak@gmail.com" class="contact-item">
+          <div class="contact-icon">📧</div>
+          <div>
+            <div class="contact-item-label">Email</div>
+            <div class="contact-item-value">itsalikhanak@gmail.com</div>
+          </div>
+        </a>
+        <a href="https://wa.me/923194205520" target="_blank" class="contact-item">
+          <div class="contact-icon">📱</div>
+          <div>
+            <div class="contact-item-label">WhatsApp / Phone</div>
+            <div class="contact-item-value">+92 319 420 5520</div>
+          </div>
+        </a>
+        <a href="https://www.linkedin.com/in/itsalikhan/" target="_blank" class="contact-item">
+          <div class="contact-icon">🔗</div>
+          <div>
+            <div class="contact-item-label">LinkedIn</div>
+            <div class="contact-item-value">Sardar Ali Usman</div>
+          </div>
+        </a>
+      </div>
+    </div>
+
+    <div class="contact-form reveal">
+      <h3 style="font-family:'Space Grotesk',sans-serif; font-size:1.2rem; font-weight:700; color:var(--white); margin-bottom:1.5rem;">Send a Message</h3>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Your Name</label>
+          <input type="text" placeholder="John Smith">
+        </div>
+        <div class="form-group">
+          <label>Your Email</label>
+          <input type="email" placeholder="john@company.com">
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Service Needed</label>
+        <select>
+          <option value="">Select a service...</option>
+          <option>Video Editing</option>
+          <option>Graphic Design</option>
+          <option>SEO</option>
+          <option>Social Media Marketing</option>
+          <option>Paid Advertising</option>
+          <option>Content Writing</option>
+          <option>Branding & Identity</option>
+          <option>Email Marketing</option>
+          <option>Full Package (Multiple Services)</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Budget Range</label>
+        <select>
+          <option value="">Select budget...</option>
+          <option>$200 - $500 / month</option>
+          <option>$500 - $1,000 / month</option>
+          <option>$1,000 - $2,500 / month</option>
+          <option>$2,500+ / month</option>
+          <option>One-time project</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Your Message</label>
+        <textarea rows="4" placeholder="Tell us about your project, goals, and timeline..."></textarea>
+      </div>
+      <button class="form-submit" onclick="handleSubmit(this)">Send Message →</button>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-top">
+    <div class="footer-brand">
+      <a href="#home" class="logo">Vex<span>io</span></a>
+      <p>A full-service digital agency helping brands grow through creative strategy, powerful content, and data-driven marketing.</p>
+      <div class="footer-social">
+        <a href="https://www.linkedin.com/in/itsalikhan/" target="_blank">in</a>
+        <a href="#">ig</a>
+        <a href="#">yt</a>
+        <a href="#">𝕏</a>
+      </div>
+    </div>
+    <div class="footer-col">
+      <h4>Quick Links</h4>
+      <ul>
+        <li><a href="#home">Home</a></li>
+        <li><a href="#services">Services</a></li>
+        <li><a href="#portfolio">Portfolio</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Services</h4>
+      <ul>
+        <li><a href="#services">Video Editing</a></li>
+        <li><a href="#services">Graphic Design</a></li>
+        <li><a href="#services">SEO</a></li>
+        <li><a href="#services">Social Media</a></li>
+        <li><a href="#services">Paid Ads</a></li>
+        <li><a href="#services">Branding</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Contact</h4>
+      <ul>
+        <li><a href="mailto:itsalikhanak@gmail.com">itsalikhanak@gmail.com</a></li>
+        <li><a href="https://wa.me/923194205520">+92 319 420 5520</a></li>
+        <li><a href="https://www.linkedin.com/in/itsalikhan/">LinkedIn Profile</a></li>
+        <li><a href="#pricing">Pricing</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2025 Vexio. All Rights Reserved.</span>
+    <span>Built with ❤️ by <a href="#home">Vexio</a> — Sardar Ali Usman</span>
+  </div>
+</footer>
+
+<!-- WHATSAPP FLOAT -->
+<a href="https://wa.me/923194205520" class="whatsapp-float" target="_blank">
+  <span>💬</span>
+  <span>Chat on WhatsApp</span>
+</a>
+
+<script>
+  // NAV SCROLL
+  const navbar = document.getElementById('navbar');
+  window.addEventListener('scroll', () => {
+    navbar.classList.toggle('scrolled', window.scrollY > 50);
+  });
+
+  // MOBILE MENU
+  const menuToggle = document.getElementById('menuToggle');
+  const navLinks = document.getElementById('navLinks');
+  menuToggle.addEventListener('click', () => {
+    navLinks.classList.toggle('open');
+  });
+
+  navLinks.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', () => navLinks.classList.remove('open'));
+  });
+
+  // ACTIVE NAV
+  const sections = document.querySelectorAll('section[id]');
+  const navItems = document.querySelectorAll('.nav-links a');
+
+  window.addEventListener('scroll', () => {
+    let current = '';
+    sections.forEach(section => {
+      if (window.scrollY >= section.offsetTop - 100) {
+        current = section.getAttribute('id');
+      }
+    });
+    navItems.forEach(a => {
+      a.classList.remove('active');
+      if (a.getAttribute('href') === '#' + current) a.classList.add('active');
+    });
+  });
+
+  // SCROLL REVEAL
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => entry.target.classList.add('visible'), i * 80);
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1 });
+  reveals.forEach(el => observer.observe(el));
+
+  // PORTFOLIO FILTERS
+  const filterBtns = document.querySelectorAll('.filter-btn');
+  filterBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      filterBtns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+    });
+  });
+
+  // FORM SUBMIT
+  function handleSubmit(btn) {
+    const originalText = btn.textContent;
+    btn.textContent = 'Sending...';
+    btn.disabled = true;
+    btn.style.opacity = '0.7';
+    setTimeout(() => {
+      btn.textContent = '✓ Message Sent!';
+      btn.style.background = '#059669';
+      setTimeout(() => {
+        btn.textContent = originalText;
+        btn.disabled = false;
+        btn.style.opacity = '1';
+        btn.style.background = '';
+      }, 3000);
+    }, 1500);
+  }
+
+  // STATS COUNTER
+  function animateCounter(el, target, suffix) {
+    let count = 0;
+    const step = Math.ceil(target / 60);
+    const interval = setInterval(() => {
+      count = Math.min(count + step, target);
+      el.innerHTML = count + '<span class="accent">' + suffix + '</span>';
+      if (count >= target) clearInterval(interval);
+    }, 25);
+  }
+
+  const statsObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const nums = entry.target.querySelectorAll('.hero-stat-num');
+        const data = [
+          { val: 120, suf: '+' },
+          { val: 85, suf: '+' },
+          { val: 4, suf: '+' },
+          { val: 98, suf: '%' }
+        ];
+        nums.forEach((el, i) => animateCounter(el, data[i].val, data[i].suf));
+        statsObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.5 });
+
+  const heroStats = document.querySelector('.hero-stats');
+  if (heroStats) statsObserver.observe(heroStats);
+</script>
+</body>
+</html>
